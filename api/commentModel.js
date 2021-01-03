@@ -1,30 +1,26 @@
-// postModel.js
+// commentModel.js
 var mongoose = require("mongoose");
 // Setup schema
-var postSchema = mongoose.Schema({
+var commentSchema = mongoose.Schema({
   username: {
     type: String,
     required: true,
   },
-  image: {
+  comment: {
     type: String,
     required: true,
   },
-  title: {
+  postID: {
     type: String,
     required: true,
-  },
-  likes: {
-    type: Number,
-    default: 0,
   },
   create_date: {
     type: Date,
     default: Date.now,
-  }
+  },
 });
-// Export post model
-var Posts = (module.exports = mongoose.model("post", postSchema));
+// Export Comment model
+var Comments = (module.exports = mongoose.model("comment", commentSchema));
 module.exports.get = function (callback, limit) {
-  Posts.find(callback).limit(limit);
+  Comments.find(callback).limit(limit);
 };
