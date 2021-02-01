@@ -52,21 +52,22 @@ exports.new = function (req, res) {
 // };
 
 exports.view = function (req, res) {
-  Post.find({ postID: req.params.post_id }, function (err, post) {
+  Post.findById(req.params.id, function (err, post) {
     if (err) res.send(err);
     res.json({
-      message: "Post details loading..",
+      message: req.params.id,
       data: post,
     });
   });
 };
 // Handle update post info
 exports.update = function (req, res) {
-  Post.findById(req.params.post_id, function (err, post) {
+  Post.findById(req.params.id, function (err, post) {
     if (err) res.send(err);
-    post.username = req.body.username ? req.body.username : post.username;
+    post.username = req.body.username;
     post.title = req.body.title;
     post.image = req.body.image;
+    post.likes = req.body.likes;
     // save the post and check for errors
     post.save(function (err) {
       if (err) res.json(err);
